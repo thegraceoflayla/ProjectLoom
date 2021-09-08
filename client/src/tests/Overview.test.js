@@ -13,15 +13,15 @@ describe('Testing to confirm test infrastructure is working', () => {
   });
 });
 
-<<<<<<< HEAD
 describe('Product Overview', function () {
   it('should render the carousel widget without crashing', function () {
     const wrapper = shallow(<Carousel productId='test' images={[test, test]} currentImage='test' styles={[test, test]} currentStyle={{}} thumbnailClick={test} />);
-=======
+  });
+});
+
 describe('Carousel', function () {
   it('should render the Carousel part of the overview widget without crashing', function () {
     const wrapper = shallow(<Overview />);
->>>>>>> main
     expect(wrapper.hasClass('carousel')).toBeTruthy();
   });
 });

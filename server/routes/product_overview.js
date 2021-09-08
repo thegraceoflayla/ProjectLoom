@@ -7,6 +7,13 @@ router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: true }));
 
 router.get('/productStyles', (req, res) => {
+  axios.get('http://localhost:3000/test')
+  .then(data => {
+    console.log('Data received from API', data.data);
+  })
+  .catch(err => {
+    console.log('Err received from API',err);
+  });
   axios.get(`${apiURL}products/${req.query.productId}/styles`, {
     headers: {
       Authorization: apiToken
@@ -49,5 +56,7 @@ router.post('/cart', (req, res) => {
       res.status(400).send(err);
     });
 });
+
+
 
 module.exports = router;
