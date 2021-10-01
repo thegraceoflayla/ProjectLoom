@@ -30,6 +30,7 @@ class Overview extends React.Component {
   }
 
   fetchProductStyles (id) {
+    console.log('OVERVIEW', id)
     $.ajax({
       url: '/atelier/productStyles/',
       type: 'GET',
@@ -65,6 +66,7 @@ class Overview extends React.Component {
   }
 
   componentDidMount () {
+    console.log('PRODID', this.props.productId)
     this.fetchProductStyles(this.props.productId);
     this.fetchProducts(this.props.productId);
   }

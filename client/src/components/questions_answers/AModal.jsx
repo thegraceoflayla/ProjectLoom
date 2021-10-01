@@ -11,7 +11,7 @@ class AModal extends React.Component {
       badInput: false,
       missingFields: []
     };
-
+//
     this.validateAnswerForm = this.validateAnswerForm.bind(this);
     this.formInput = this.formInput.bind(this);
     this.submitAnswer = this.submitAnswer.bind(this);
