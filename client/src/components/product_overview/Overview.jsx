@@ -29,33 +29,58 @@ class Overview extends React.Component {
     this.addToBag = this.addToBag.bind(this);
   }
 
-  fetchProductStyles (id) {
-    $.ajax({
-      url: '/atelier/productStyles/',
-      type: 'GET',
-      data: { productId: id },
-      success: (data) => {
-        this.setState({ styles: data.results });
-        const imagesArray = this.state.styles.map((style) => {
-          return style.photos;
-        });
-        this.setState({ images: imagesArray });
-        this.setState({ currentImage: imagesArray[0][0].url });
-        this.setState({ currentStyle: data.results[0] });
-      },
-      error: (err) => {
-        console.log('error in getting back to client', err);
-      }
-    });
-  }
+  // fetchProductStyles (id) {
+  //   $.ajax({
+  //     url: '/atelier/productStyles/',
+  //     type: 'GET',
+  //     data: { productId: id },
+  //     success: (data) => {
+  //       this.setState({ styles: data.results });
+  //       const imagesArray = this.state.styles.map((style) => {
+  //         return style.photos;
+  //       });
+  //       this.setState({ images: imagesArray });
+  //       this.setState({ currentImage: imagesArray[0][0].url });
+  //       this.setState({ currentStyle: data.results[0] });
+  //     },
+  //     error: (err) => {
+  //       console.log('error in getting back to client', err);
+  //     }
+  //   });
+  // }
 
-  fetchProducts (id) {
+  // fetchProducts (id) {
+  //   $.ajax({
+  //     url: '/atelier/product',
+  //     type: 'GET',
+  //     data: { productId: id },
+  //     success: (data) => {
+  //       this.setState({ product: data });
+  //       this.props.getProductName(data.name);
+  //     },
+  //     error: (err) => {
+  //       console.log('error in back to client product', err);
+  //     }
+  //   });
+  // }
+
+  fetchProductData (id) {
     $.ajax({
-      url: '/atelier/product',
+      url: '/atelier/productData',
       type: 'GET',
       data: { productId: id },
       success: (data) => {
         this.setState({ product: data });
+        this.setState({ styles: data.styles });
+        const imagesArray = data.styles.map((style) => {
+          return style.photos;
+        });
+        const defaultStyle = data.styles.filter(style => {
+          return style['default?'];
+        });
+        this.setState({ currentStyle: defaultStyle[0] });
+        this.setState({ images: imagesArray[0] });
+        this.setState({ currentImage: this.state.currentStyle.photos[0].url});
         this.props.getProductName(data.name);
       },
       error: (err) => {
@@ -65,14 +90,16 @@ class Overview extends React.Component {
   }
 
   componentDidMount () {
-    this.fetchProductStyles(this.props.productId);
-    this.fetchProducts(this.props.productId);
+    // this.fetchProductStyles(this.props.productId);
+    // this.fetchProducts(this.props.productId);
+    this.fetchProductData(this.props.productId);
   }
 
   componentDidUpdate (prevProps) {
     if (prevProps.productId !== this.props.productId) {
-      this.fetchProducts(this.props.productId);
-      this.fetchProductStyles(this.props.productId);
+      // this.fetchProducts(this.props.productId);
+      // this.fetchProductStyles(this.props.productId);
+      this.fetchProductData(this.props.productId);
     }
   }
 
