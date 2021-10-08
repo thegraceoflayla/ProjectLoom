@@ -1,9 +1,10 @@
 /* eslint-disable camelcase */
 const axios = require('axios');
 const { apiToken } = require('./../../config.js');
-const api = `http://localhost:5000/`
+const api = `http://ec2-18-224-2-240.us-east-2.compute.amazonaws.com:3000/`
 
 const getMaster = (product, sort) => {
+  console.log(api + 'master')
   return axios.get(api + `master`,
     {params: {
       sort: sort,
@@ -18,7 +19,7 @@ const getMaster = (product, sort) => {
 const getReviews = (product, sort) => {
   return axios.get(api + 'reviews',
     {params: {
-      sort: sort,
+      sort: sort, 
       count: 100,
       product_id: product
     }}
@@ -43,6 +44,7 @@ const putHelp = (reviewID) => {
 };
 
 const postReview = (obj) => {
+  console.log('posting review')
   const { product_id, rating, summary, body, recommend, name, email, characteristics } = obj;
   const data = { product_id: product_id, rating: rating, summary: summary, body: body, recommend: recommend, name: name, email: email, characteristics: characteristics, photos: [] };
   return axios.post(api + 'review', data);

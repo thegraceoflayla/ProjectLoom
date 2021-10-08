@@ -14,7 +14,7 @@ class App extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
-      id: 47421,
+      id: 2,
       value: '',
       starValue: 0,
       reviewLength: 0,

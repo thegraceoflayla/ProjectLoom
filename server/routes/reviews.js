@@ -18,6 +18,7 @@ router.get('/reviews', (req, res) => {
 });
 
 router.put('/reviews/helpful', (req, res) => {
+  console.log('help', req.body)
   putHelp(req.body.review_Id).then((response) => {
     res.end();
   }).catch((err) => console.log(err));
@@ -30,12 +31,16 @@ router.get('/reviews/meta', (req, res) => {
 });
 
 router.put('/reviews/report', (req, res) => {
-  putReport(req.body.review_id).then((results) => res.end());
+  console.log('put request client', req.body)
+  putReport(req.body.review_id).then((results) => { 
+    console.log('put complete CLIENT');
+    res.end()
+  });
 });
 
 router.post('/reviews', (req, res) => {
   console.log('post review router')
-  postReview(req.body).then((response) => res.send('Success')).catch((err) => console.log(err));
+  postReview(req.body).then((response) => {res.send('Success')}).catch((err) => console.log(err));
 });
 
 router.post('/reviews/interaction', (req, res) => {
