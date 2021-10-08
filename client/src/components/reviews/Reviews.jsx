@@ -154,36 +154,37 @@ class Reviews extends React.Component {
 
   getProductDetails () {
     this.props.getReviews(this.props.product_id, this.state.sortBy, (results) => {
+      console.log('fontside', results)
       this.setState({
-        reviewList: results
+        reviewList: results[0]
       });
-      this.props.getReviewLength(results.length);
-    });
-    this.props.getMeta(this.props.product_id, (results) => {
+      this.props.getReviewLength(results[0].length);
+  
+    
       const characteristics = [];
       let averageRating = 0;
       let num = 0;
       let den = 0;
-      console.log('resultsss', results);
-      for (const keys in results.characteristics) {
+      console.log('results[1]ss', results[1]);
+      for (const keys in results[1].characteristics) {
         const obj = {};
-        obj[keys] = { value: results.characteristics[keys].value, id: results.characteristics[keys].id };
+        obj[keys] = { value: results[1].characteristics[keys].value, id: results[1].characteristics[keys].id };
         characteristics.push(obj);
       };
-      for (const keys in results.ratings) {
-        num = (num + (keys * results.ratings[keys]));
-        den += parseInt(results.ratings[keys]);
+      for (const keys in results[1].ratings) {
+        num = (num + (keys * results[1].ratings[keys]));
+        den += parseInt(results[1].ratings[keys]);
       }
       averageRating = num / den;
       this.props.setStars(averageRating);
       this.setState({
         characteristics: characteristics,
-        ratings: results.ratings,
-        recommended: results.recommended,
-        ratingsBreakdown: results.ratings || {}
+        ratings: results[1].ratings,
+        recommended: results[1].recommended,
+        ratingsBreakdown: results[1].ratings || {}
       });
     });
-  }
+  };
 
   componentDidUpdate (prevProps, prevState) {
     if (prevProps.product_id !== this.props.product_id) {
@@ -217,7 +218,7 @@ class Reviews extends React.Component {
       //     recommended: results.recommended,
       //     ratingsBreakdown: results.ratings || {}
       //   });
-      // });
+      //});
     }
   }
 

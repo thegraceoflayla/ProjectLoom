@@ -45,6 +45,7 @@ class Ratings extends React.Component {
   }
 
   render () {
+    console.log('PORPPPS', this.props)
     const rounded = Math.floor(this.props.starValue * 10) / 10;
     return (
     <div className='reviewRatings'>

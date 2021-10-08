@@ -28,7 +28,9 @@ class Overview extends React.Component {
     this.handleZoomOut = this.handleZoomOut.bind(this);
     this.addToBag = this.addToBag.bind(this);
   }
-
+  
+  fetchProductStyles (id) {
+    console.log('OVERVIEW', id)
   // fetchProductStyles (id) {
   //   $.ajax({
   //     url: '/atelier/productStyles/',
